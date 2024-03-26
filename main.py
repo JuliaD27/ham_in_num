@@ -83,7 +83,7 @@ def quiz():
         right = []
         for i in range(1, 6):
             line = request.form[r'line_' + str(i)]
-            char_info = request.form[r'guess_char' + str(i)].split('.')     # ИЗ РАДИОКНОПКИ ВОЗВРАЩАЕТСЯ ЦЕЛЫЙ СПИСОК С ИНФОРМАЦИЕЙ,
+            char_info = request.form[r'guess_char' + str(i)].split('.')     # ИЗ РАДИОКНОПКИ ВОЗВРАЩАЕТСЯ НАБОР РАЗНОЙ ИНФОРМАЦИИ,
             song_info = request.form[r'guess_song' + str(i)].split('.')     # РАЗДЕЛЕННОЙ ТОЧКОЙ, ПОЭТОМУ ДЕЛАЕМ ИЗ СТРОКИ СПИСОК
 
             if len(char_info) == 3:
@@ -290,7 +290,7 @@ def numbers():
             for tok in doc:
                 w_sum += 1                                      # СЧИТАЕМ ОБЩЕЕ ЧИСЛО СЛОВ В ПЕСНЕ (ВКЛЮЧАЯ СТОП-СЛОВА)
                 if not tok.is_punct and tok.lemma_ not in tokens and not tok.is_stop and tok.pos_ != 'PROPN' and tok.pos_ != 'INTJ':
-                    tokens[tok.lemma_] = 1                      # ЦИКЛ IF СЧИТАЕТ ТОП СЛОВ В ПЕСНЕ
+                    tokens[tok.lemma_] = 1                      # IF СЧИТАЕТ ТОП СЛОВ В ПЕСНЕ
                 elif not tok.is_punct and not tok.is_stop and tok.pos_ != 'PROPN' and tok.pos_ != 'INTJ':
                     tokens[tok.lemma_] += 1
         
@@ -308,7 +308,7 @@ def numbers():
 
         name = titles()[song_id-1][1]
         length = len(text)
-        names_in_stat = {}      # СНОВА ПУСТАЯ ПЕРЕМЕННАЯ, ИСПОЛЬЗ-Я В ПРЕДЫД-Й ЧАСТИ ЦИКЛА. ЗДЕСЬ НУЖНА ЧТОБЫ ПРОГРАММА НЕ УПАЛА
+        names_in_stat = {}      # СНОВА ПУСТАЯ ПЕРЕМЕННАЯ, ИСПОЛЬЗ-Я В ПРЕДЫД-Й ЧАСТИ IF. ЗДЕСЬ НУЖНА ЧТОБЫ ПРОГРАММА НЕ УПАЛА
 
     return render_template('numbers.html', titles=titles(), song_id=song_id, name=name, text=text, length=length, 
                            name_list=name_list, n_char=len(name_list), words=words, toks=toks, w_sum=w_sum, names_in_stat=names_in_stat) 
