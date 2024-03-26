@@ -1,12 +1,8 @@
-from xml.dom.minidom import Text
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import matplotlib.pyplot as plt
-import numpy as np
-from sqlalchemy import ForeignKey
 import pandas as pd
 import spacy
-from spacy.tokens import MorphAnalysis
 import random
 nlp = spacy.load("en_core_web_sm")
 
