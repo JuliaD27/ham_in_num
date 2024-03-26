@@ -23,3 +23,15 @@
 <li><b>instance</b> –– директория, в которой лежит файл с базой данных.</li>
 <li><b>static</b> –– директория с png-файлами.</li>
 
+Установка
+-
+Для успешной работы кода:
+```bash
+pip install flask
+pip install -U Flask-SQLAlchemy
+pip install pandas
+pip install spacy
+python -m spacy download en_core_web_sm
+pip install matplotlib
+```
+
