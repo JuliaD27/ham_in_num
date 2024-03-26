@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<style>
+    .space { 
+        padding: 20px; /* Поля */
+        background: rgb(240, 210, 137); /* Цвет фона */
+        border: 2px solid #ba9108; /* Параметры рамки */
+    }
+</style>
+
+<div class="space">
+    <h2 style="color: rgb(151, 116, 26)">Добро пожаловать на сайт <i>Hamilton in numbers!</i></h2>
+    <p style="font-size: 20px;">Он посвящен текстам песен из мюзикла <i>Гамильтон</i>, который написал Лин-Мануэль Миранда.</p>
+    <br>
+    <h4>Что здесь можно делать:</h4>
+    <li style="font-size: 20px;">Выбрать песню из колонки слева, чтобы прочитать ее текст и получить базовую статистику.</li>
+    <li style="font-size: 20px;">Сыграть в игру на знание строчек мюзикла, выбрав в меню сверху <i><strong>Квиз</strong></i>.</li>
+    <li style="font-size: 20px;">Посмотреть общую статистику во вкладке <i><strong>Статистика по мюзиклу</strong></i>.</li>
+    <li style="font-size: 20px;">Посмотреть общие результаты квизов во вкладке <i><strong>Статистика по квизу</strong></i>.</li>
+    <br>
+    <br>
+    <a class="link" style='color: rgb(151, 116, 26)' href="https://www.kaggle.com/datasets/lbalter/hamilton-lyrics">Датафрейм</a>
+    , из которого были взяты тексты. 
+    <br>
+    Сайт является учебным проектом, что допускает использование текстов песен без нарушения авторских прав.
+</div>
+
+
+{% endblock %}

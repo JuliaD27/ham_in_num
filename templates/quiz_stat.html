@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика по квизу{% endblock %}
+
+{% block content %}
+
+<style>
+    .space { 
+        padding: 20px; /* Поля */
+        background: rgb(240, 210, 137); /* Цвет фона */
+        border: 2px solid #ba9108; /* Параметры рамки */
+    }
+</style>
+
+<div class="space">
+    <strong><h2>Статистика по квизу</h2></strong>
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <div class="space">
+            <h4>Угадываемость персонажей</h4>
+            {% for q in q_char %}
+                <details>
+                    <summary>{{ q[0] }}</summary>
+                    <img src="static/char_guess_{{ q[0] }}.png" class='d-block w-100', alt="Персонажи">
+                    
+                </details>
+    
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="space">
+            <h4>Угадываемость песен</h4>
+            {% for q in q_songs %}
+                <details>
+                    <summary>{{ q[0] }}</summary>
+                    <img src="static/song_guess_{{ q[0] }}.png" class='d-block w-100', alt="Песни">
+                    
+                </details>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Квиз{% endblock %}
+
+{% block content %}
+<style>
+    .space { 
+        padding: 20px; /* Поля */
+        background: rgb(240, 210, 137); /* Цвет фона */
+        border: 2px solid #ba9108; /* Параметры рамки */
+    }
+</style>
+
+
+<div class="space">
+    <strong><h2>Квиз</h2></strong>
+    <p style="font-size: 20px;">Перед Вами 5 строк из мюзикла. Ваша задача правильно назвать песню, из которой взята эта строка, и персонажа, который ее поет.</p>
+    <br>
+    <h4>Важно:</h4>
+    <li style="font-size: 20px;">Вопросы квиза формируются рандомно каждый раз, когда Вы обновляете эту страницу.</li>
+    <li style="font-size: 20px;">Неотправленные ответы не сохраняются!</li>
+    <li style="font-size: 20px;">Результаты последнего пройденного квиза будут видны сразу после отправки.</li>
+    <li style="font-size: 20px;">Вы можете проходить квиз сколько угодно раз. Но видеть свои предыдущие ответы Вы не сможете.</li>
+    <li style="font-size: 20px;">Зато Вы можете посмотреть общие итоги квизов во вкладке <i><strong>Статистика по квизу</strong></i>.</li>
+</div>
+<br>
+<br>
+<form method="POST">
+    <div class="space">
+        {% for k in quiz5.keys() %}
+            <i><strong><h3>{{ loop.index }}. {{ k }}</h3></strong></i>
+            <input id="line_{{ loop.index }}" name='line_{{ loop.index }}' type="hidden" value="{{ k }}">
+                <div class="row">
+                    <div class="col-sm"><h5>Песни</h5></div>
+                    <div class="col-sm"><h5>Персонажи</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <!-- в value первое -- название песни или имя персонажа, второе -- код: 0 или 1 (верный или не верный ответ) -->
+                        <input id="{{ quiz5[k][1][0][0] }}.{{quiz5[k][1][0][1] }}.{{ right[loop.index - 1][0] }}" type="radio" name="guess_song{{ loop.index }}" 
+                        value="{{ quiz5[k][1][0][0] }}.{{quiz5[k][1][0][1] }}.{{ right[loop.index - 1][0] }}">
+
+                        <label for="{{ quiz5[k][1][0][0] }}.{{quiz5[k][1][0][1] }}.{{ right[loop.index - 1][0] }}">{{ quiz5[k][1][0][0] }}</label>
+                    </div>
+                    <div class="col-sm">
+                        <input id="{{ ''.join(quiz5[k][2][0][0]) }}.{{ quiz5[k][2][0][1] }}.{{ right[loop.index - 1][1] }}" type="radio" name="guess_char{{ loop.index }}"
+                        value="{{ ''.join(quiz5[k][2][0][0]) }}.{{ quiz5[k][2][0][1] }}.{{ right[loop.index - 1][1] }}">
+
+                        <label for="{{ ''.join(quiz5[k][2][0][0]) }}.{{ quiz5[k][2][0][1] }}.{{ right[loop.index - 1][1] }}">{{ ''.join(quiz5[k][2][0][0]) }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <input id="{{ quiz5[k][1][1][0] }}.{{ quiz5[k][1][1][1] }}.{{ right[loop.index - 1][0] }}" type="radio" name="guess_song{{ loop.index }}"
+                        value="{{ quiz5[k][1][1][0] }}.{{ quiz5[k][1][1][1] }}.{{ right[loop.index - 1][0] }}">
+
+                        <label for="{{ quiz5[k][1][1][0] }}.{{ quiz5[k][1][1][1] }}.{{ right[loop.index - 1][0] }}">{{ quiz5[k][1][1][0] }}</label>
+                    </div>
+                    <div class="col-sm">
+                        <input id="{{ ''.join(quiz5[k][2][1][0]) }}.{{ quiz5[k][2][1][1] }}.{{ right[loop.index - 1][1] }}" type="radio" name="guess_char{{ loop.index }}"
+                        value="{{ ''.join(quiz5[k][2][1][0]) }}.{{ quiz5[k][2][1][1] }}.{{ right[loop.index - 1][1] }}">
+
+                        <label for="{{ ''.join(quiz5[k][2][1][0]) }}.{{ quiz5[k][2][1][1] }}.{{ right[loop.index - 1][1] }}">{{ ''.join(quiz5[k][2][1][0]) }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <input id="{{ quiz5[k][1][2][0] }}.{{ quiz5[k][1][2][1] }}.{{ right[loop.index - 1][0] }}" type="radio" name="guess_song{{ loop.index }}"
+                        value="{{ quiz5[k][1][2][0] }}.{{ quiz5[k][1][2][1] }}.{{ right[loop.index - 1][0] }}">
+
+                        <label for="{{ quiz5[k][1][2][0] }}.{{ quiz5[k][1][2][1] }}.{{ right[loop.index - 1][0] }}">{{ quiz5[k][1][2][0] }}</label>
+                    </div>
+                    <div class="col-sm">
+                        <input id="{{ ''.join(quiz5[k][2][2][0]) }}.{{ quiz5[k][2][2][1] }}.{{ right[loop.index - 1][1] }}" type="radio" name="guess_char{{ loop.index }}"
+                        value="{{ ''.join(quiz5[k][2][2][0]) }}.{{ quiz5[k][2][2][1] }}.{{ right[loop.index - 1][1] }}">
+
+                        <label for="{{ ''.join(quiz5[k][2][2][0]) }}.{{ quiz5[k][2][2][1] }}.{{ right[loop.index - 1][1] }}">{{ ''.join(quiz5[k][2][2][0]) }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <input id="idk1" type="radio" name="guess_song{{ loop.index }}" 
+                        value="idk1.{{ right[loop.index - 1][0] }}" checked>
+
+                        <label for="idk1">Не знаю</label>
+                    </div>
+                    <div class="col-sm">
+                        <input id="idk2" type="radio" name="guess_char{{ loop.index }}"
+                        value="idk2.{{ right[loop.index - 1][1] }}" checked>
+
+                        <label for="idk2">Не знаю</label>
+                    </div>
+                </div>
+                <br>
+    
+        {% endfor %}
+        <input type="submit" value="Отправить ответ" style="background-color:rgb(185, 147, 53)"/>
+    </div>
+
+</form>
+
+{% endblock %}

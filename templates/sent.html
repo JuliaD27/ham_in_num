@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Отправлено{% endblock %}
+
+{% block content %}
+<style>
+    .space { 
+        padding: 20px; /* Поля */
+        background: rgb(240, 210, 137); /* Цвет фона */
+        border: 2px solid #ba9108; /* Параметры рамки */
+    }
+</style>
+
+<div class="space">
+    {% for k in answr.keys() %}
+        <i><strong><h3>{{ loop.index }}. {{ k }}</h3></strong></i>
+            <div class="row">
+                <div class="col-sm"><h5>Песня</h5></div>
+                <div class="col-sm"><h5>Персонаж</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <!-- в value первое -- название песни или имя персонажа, второе -- код: 0 или 1 (верный или не верный ответ) -->
+                    <p style="font-size: 15px;"><b>Вы выбрали:</b> <i>{{ answr[k][0][0] }}</i></p>
+                    {% if answr[k][0][1] == 1 %}
+                    <p style="font-size: 15px; color: rgb(62, 156, 62)"><b>Верно :D</b></p>
+                    {% else %}
+                    <p style="font-size: 15px; color: rgb(200, 81, 81)"><b>Неверно ㅠㅠ</b></p>
+                    <p style="font-size: 15px;"><b>Верный ответ:</b> <i>{{ right[loop.index-1][0] }}</i></p>
+                    {% endif %}
+                </div>
+                <div class="col-sm">
+                    <p style="font-size: 15px;"><b>Вы выбрали:</b> <i>{{ answr[k][1][0] }}</i></p>
+                    {% if answr[k][1][1] == 1 %}
+                    <p style="font-size: 15px; color: rgb(62, 156, 62)"><b>Верно :D</b></p>
+                    {% else %}
+                    <p style="font-size: 15px; color: rgb(200, 81, 81)"><b>Неверно ㅠㅠ</b></p>
+                    <p style="font-size: 15px;"><b>Верный ответ:</b> <i>{{ right[loop.index-1][1] }}</i></p>
+                    {% endif %}
+                </div>
+            </div>
+            
+
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика по мюзиклу{% endblock %}
+
+{% block content %}
+
+<style>
+    .space { 
+        padding: 20px; /* Поля */
+        background: rgb(240, 210, 137); /* Цвет фона */
+        border: 2px solid #ba9108; /* Параметры рамки */
+    }
+</style>
+
+<div class="space">
+    <strong><h2> {{ name }}</h2></strong>
+    
+    <div class="row">
+        <div class="col-sm">
+            <p style="font-size: 20px">Всего строк: {{ length }}</p>
+        </div>
+        <div class="col-sm">
+                <p style="font-size: 20px">Персонажей поет: {{ n_char }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <p style="font-size: 20px">Всего слов: {{ w_sum }}</p>
+        </div>
+        <div class="col-sm">
+            {% if song_id != 0 %}
+                <p style="font-size: 20px">Песня по счёту: {{ song_id }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <div class="space">
+            {% if song_id != 0 %}
+                <h3>Текст песни</h3>
+                {% for k in text.keys() %}
+                    <strong>{{ ', '.join(text[k][1]) }}:</strong><br>
+                    {{ text[k][0] }}<br>
+                {% endfor %}
+            {% else %}
+                <h4>Топ-30 слов в мюзикле</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope='col col-sm-12'>Слово</th>
+                            <th scope='col col-sm-12'>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for w in words.keys() %}
+                            <tr>
+                                <td style="font-size: 20px;">{{ w }}</td>
+                                <td style="font-size: 20px;">{{ words[w][0] }} ({{ words[w][1] }}%)</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="space">
+            {% if song_id != 0 %}
+                <h4>Персонажи в песне</h4>
+            {% else %}
+                <h4>Персонажи в мюзикле</h4>
+            {% endif %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope='col col-sm-12'>Имя</th>
+                        <th scope='col col-sm-12'>Количество строк</th>
+                        <th scope='col col-sm-12'>Количество слов</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if song_id != 0 %}
+                        {% for n in name_list %}
+                            <tr>
+                                <td style="font-size: 20px;">{{ n[0] }}</td>
+                                <td style="font-size: 20px;">{{ n[1] }}</td>
+                                <td style="font-size: 20px;">{{ words.loc[words['name'] == n[0]]['n_words'].values[0] }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for n in name_list %}
+                            <tr>
+                                <td style="font-size: 20px;">{{ n[0] }}</td>
+                                <td style="font-size: 20px;">{{ n[1][0] }} ({{ n[1][2] }}%)</td>
+                                <td style="font-size: 20px;">{{ n[1][1] }} ({{ n[1][3] }}%)</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        {% if song_id != 0 %}
+            <div class="space">
+                <h4>Топ-10 слов в песне</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope='col col-sm-12'>Слово</th>
+                            <th scope='col col-sm-12'>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k in toks %}
+                            <tr>
+                                <td style="font-size: 20px;">{{ k[0] }}</td>
+                                <td style="font-size: 20px;">{{ k[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+   </div>
+</div>
+
+{% if song_id == 0 %}
+    <div class="space">
+        {% for n in names_in_stat %}
+            <details>
+                <summary>Топ-25 слов персонажа {{ n }}</summary>
+                <img src="static/top_words{{ loop.index }}.png" class='d-block w-100', alt="Имена">
+            </details>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+{% endblock %}
